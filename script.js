@@ -86,19 +86,56 @@ fetch('https://api.openweathermap.org/data/2.5/weather?q='+city+'&appid='+ apike
 
 
 
-$("#searchbtn").click( function(){
+function retrieveSearchHistory() {
+  var searchHistory = localStorage.getItem('searchHistory');
+console.log
+  if (searchHistory) {
+    return JSON.parse(searchHistory);
+  } else {
+    return [];
+  }
+}
 
-  var city = $(".search").val()
-  console.log(city)
+// Function to initialize the search history on page load
+function initializeSearchHistory() {
+  var searchHistory = retrieveSearchHistory();
+
+  // Add each search item to the history list
+  searchHistory.forEach(function(city) {
+    var history = $('<li>').text(city);
+    $('#history').append(history);
+  });
+}
+
+// Call the initializeSearchHistory function when the page is loaded
+
+
+
+
+// Event handler for search button click
+$("#searchbtn").click(function() {
+  var city = $(".search").val();
+  console.log(city);
   weathers(city);
+
+  // Retrieve the search history from local storage
+  var searchHistory = retrieveSearchHistory();
+
+  // Add the current search to the search history
+  searchHistory.push(city);
+
+  // Save the updated search history to local storage
+  localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+
+  // Add the search to the history list
   var history = $('<li>').text(city);
- 
   $('#history').append(history);
-    })
+});
 
 $(document).on("click",'li',function(){
 var city = $(event.target).text()
 console.log(city)
 weathers(city);
 
-})
+}) 
+ initializeSearchHistory();
