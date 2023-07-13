@@ -97,7 +97,7 @@ $("#searchbtn").click( function(){
     })
 
 $(document).on("click",'li',function(){
-var city = $(this).val()
+var city = $(event.target).text()
 console.log(city)
 weathers(city);
 
