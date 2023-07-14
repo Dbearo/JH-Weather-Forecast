@@ -4,6 +4,7 @@ var apikey = "82d5c90ebbd4523a1d69f1cd7bbb8f14"
 function setForcast(datas) {
   var count = 0;
   for (i = 0, i; datas.list.length; i += 8) {
+    //for loop for setting all of the forcasts for future days
     var ftemp = datas.list[i].main.temp
     ftemp -= 273.15
     ftemp = ftemp.toFixed(2);
@@ -20,7 +21,7 @@ function setForcast(datas) {
     count++
   }
 }
-
+// gets all the relevent data from the API and sets the weather for the current time
 function setCurrent(datas) {
   var temp = datas.main.temp
   temp -= 273.15
